@@ -1,0 +1,18 @@
+name: teacher-postgres
+replicaCount: 1
+label: postgres
+
+image:
+  repository: postgres
+  tag: alpine
+
+service:
+  name: "postgres-service"
+  port: 5432
+
+secret:
+  name: postgressecret
+  user: postgrescicd
+  password: postgrescicd
+  db: postgrescicdDB
+

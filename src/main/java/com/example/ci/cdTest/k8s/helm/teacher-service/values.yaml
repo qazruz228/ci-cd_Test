@@ -1,0 +1,32 @@
+name: teacher
+replicaCount: 3
+label: app
+image:
+  repository: qwera200/teacher
+  tag: 0.7
+  pullPolicy: Always
+
+service:
+  name: teacher-service
+  port: 8080
+  targetPort: 8080
+
+configMap:
+  name: teacherconfig
+  port: 5432
+  host: postgres-service
+  db: postgrescicdDB
+
+secret:
+  name: teachersecret
+  POSTGRES_USER: postgrescicd
+  POSTGRES_PASSWORD: postgrescicd
+
+
+ingress:
+  enabled: true
+  host: teacher
+  path: /
+
+
+
