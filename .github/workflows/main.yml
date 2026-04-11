@@ -35,3 +35,29 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/teacher-service:${{ github.sha }}
+          
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Set kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=$PWD/kubeconfig
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install teacher-service ./helm/teacher-service \
+            --set image.repository=${{ secrets.DOCKER_USERNAME }}/teacher-service \
+            --set image.tag=${{ github.sha }}
