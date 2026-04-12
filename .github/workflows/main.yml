@@ -53,6 +53,6 @@ jobs:
 
       - name: Deploy with Helm
         run: |
-          helm upgrade --install teacher-service ./helm/teacher-service \
+          helm upgrade --install teacher-service src/main/java/com/example/ci/cdTest/k8s/helm/teacher-service
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/teacher-service \
             --set image.tag=${{ github.sha }}
