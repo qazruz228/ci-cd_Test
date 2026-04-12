@@ -40,8 +40,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+#      - name: Install kubectl
+#        uses: azure/setup-kubectl@v3
 
 #      - name: Install Helm
 #        uses: azure/setup-helm@v3
